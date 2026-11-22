@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>typogram - MusorDrop Style</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="bg-glow"></div>
+<div class="bg-glow-2"></div>
+<div id="toastContainer" class="toast-container"></div>
+
+<div id="authScreen" class="screen-view auth-view">
+  <div class="auth-card">
+    <h1 class="logo animated-logo" id="logoAuth">typogram</h1>
+    <p class="tagline">Кейсы • Апгрейдер • Мусорный стиль</p>
+    <div class="field"><input id="authLogin" placeholder="Логин"></div>
+    <div class="field"><input id="authPass" type="password" placeholder="Пароль"></div>
+    <button class="btn primary" onclick="doAuth('login')">Войти</button>
+    <button class="btn ghost" onclick="doAuth('register')">Создать аккаунт</button>
+    <p id="authMsg" class="msg"></p>
+  </div>
+</div>
+
+<div id="mainScreen" class="screen-view main-view hidden">
+  <header class="topbar">
+    <span class="logo small animated-logo" id="logoTap">typogram</span>
+    <div style="display:flex; align-items:center; gap:12px;">
+      <span class="balance" id="balanceLabel">0 ₽</span>
+      <button class="logout-btn" onclick="logout()">Выйти</button>
+    </div>
+  </header>
+
+  <main class="content">
+    <section id="tab-cases" class="tab active">
+      <h2 class="section-title">Кейсы (MusorDrop Style)</h2>
+      <div id="casesGrid" class="cases-grid"></div>
+    </section>
+
+    <section id="tab-upgrader" class="tab">
+      <h2 class="section-title">Upgrader</h2>
+      <p class="muted" style="margin-bottom:16px;">Выбери предмет и множитель. Шанс зависит от множителя.</p>
+      
+      <div class="upg-layout">
+        <div class="upg-panel">
+          <h3 class="upg-subtitle">Твой инвентарь</h3>
+          <div id="invList" class="inv-list"></div>
+        </div>
+        <div class="upg-panel">
+          <h3 class="upg-subtitle">Множитель</h3>
+          <div id="multList" class="mult-list"></div>
+        </div>
+      </div>
+
+      <div id="upgActionBox" class="upg-box hidden">
+        <div class="upg-roulette-container">
+          <div class="upg-roulette" id="rouletteStrip"></div>
+          <div class="roulette-center-line"></div>
+        </div>
+        <div class="upg-info">
+          <span>Предмет: <b id="upgStakeName"></b> (<span id="upgStakeVal"></span> ₽)</span>
+          <span>Множитель: <b id="upgMultVal"></b></span>
+          <span>Цель: <b id="upgTargetVal"></b> ₽</span>
+        </div>
+        <div class="upg-chance">Шанс успеха: <b id="upgChanceText">0%</b></div>
+        <button class="btn primary" id="upgBtn" onclick="doUpgrade()">Крутить</button>
+      </div>
+    </section>
+
+    <section id="tab-deposit" class="tab">
+      <h2 class="section-title">Пополнение</h2>
+      <div class="card glass-panel">
+        <p class="muted">Пополнение через владельца</p>
+        <p class="contact glowing-text">@ooemw</p>
+      </div>
+      <div class="card glass-panel">
+        <p class="muted">Добавить NFT-подарок — @swat</p>
+        <p class="muted">Твой ID:</p>
+        <p class="id-badge" id="myId"></p>
+      </div>
+    </section>
+
+    <section id="tab-profile" class="tab">
+      <h2 class="section-title">Профиль</h2>
+      <div class="card profile glass-panel">
+        <div class="row"><span>Логин</span><b id="pLogin"></b></div>
+        <div class="row"><span>ID</span><b id="pId"></b></div>
+        <div class="row"><span>Баланс</span><b id="pBal" class="glowing-text"></b></div>
+      </div>
+    </section>
+  </main>
+
+  <nav id="bottomNav" class="glass-nav">
+    <button data-tab="cases" class="active" onclick="switchTab('cases', this)">Кейсы</button>
+    <button data-tab="upgrader" onclick="switchTab('upgrader', this)">Upgrader</button>
+    <button data-tab="deposit" onclick="switchTab('deposit', this)">Пополнение</button>
+    <button data-tab="profile" onclick="switchTab('profile', this)">Профиль</button>
+  </nav>
+</div>
+
+<div id="adminOverlay" class="overlay hidden">
+  <div class="admin-box glass-panel">
+    <div id="adminAuth">
+      <h3>Админ-панель</h3>
+      <div class="field"><input id="adminPass" type="password" placeholder="Пароль"></div>
+      <button class="btn primary" onclick="adminLogin()">Войти</button>
+      <p id="adminMsg" class="msg"></p>
+    </div>
+    <div id="adminPanel" class="hidden">
+      <div class="admin-tabs">
+        <button onclick="adminView('deposit', this)" class="active">Пополнение</button>
+        <button onclick="adminView('gift', this)">NFT</button>
+        <button onclick="adminView('users', this)">Юзеры</button>
+        <button onclick="adminView('access', this)">Доступ</button>
+      </div>
+      <div id="adminContent" class="admin-content"></div>
+    </div>
+    <button class="btn ghost close-btn" onclick="document.getElementById('adminOverlay').classList.add('hidden')">Закрыть</button>
+  </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
